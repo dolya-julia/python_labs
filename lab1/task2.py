@@ -21,8 +21,23 @@ def russian_flag(mas):
     str = s[s_w:s_r] + s[s_b:] + " " + s[s_r:s_b]
     mas = str.split()
     return mas
-str = input()
-mas = [i for i in input().split()]
-print(mix_words(str))
-print(count_even_words(str))
-print(russian_flag(mas))
+
+print("Какую задачу вы хотите решить?")
+print("Задача 3(перемешать слова в строке), задача 8(количество слов с четным количеством символов), задача 16(российский флаг)")
+n = int(input())
+if n == 3:
+    print("Введите строку")
+    str = input()
+    print(mix_words(str))
+elif n == 8:
+    print("Введите строку")
+    str = input()
+    print(count_even_words(str))
+elif n == 16:
+    print('Введите массив, состоящий из элементов "белый", "синий", и "красный"')
+    mas = [i for i in input().split()]
+    print(russian_flag(mas))
+else:
+    print("Задача не выбрана")
+
+
