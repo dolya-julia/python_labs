@@ -1,3 +1,4 @@
-my_list = list(map(str, input().split(".")))
-my_list.sort(key=lambda x: len(x.split()))
-print(my_list)
+n = int(input())
+l = [ str(input()) for i in range(n) ]
+l.sort(key=lambda x: len(x.split()))
+print(l)
