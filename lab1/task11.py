@@ -1,19 +1,23 @@
 import math
+n = int(input())
+l = [str(input()) for i in range(n)]
+st = ' '.join(l)
 def com_symbol(s):
     k = 0
     for c in s:
         if s.count(c) >= k:
             k = s.count(c)
             symb = c
-    st = ' '.join(l)
-    return k - st.count(symb)
+    global st
+    k_t = st.count(symb)
+    return k - k_t
 def sq_deviation(s):
     k = 0
     for c in s:
         if s.count(c) >= k:
             k = s.count(c)
             symb = c
-    st = ' '.join(l)
+    global st
     k_t = st.count(symb)
     sr = (k + k_t) / 2
     return math.sqrt(((k - sr) ** 2 + (k_t - sr) ** 2) / 2)
@@ -28,7 +32,17 @@ def vow_cons(s):
         if s[i] in consonants and s[i+1] in vowels:
             k_cv += 1
     return k_vc - k_cv
-n = int(input())
-l = [str(input()) for i in range(n)]
-l.sort(key = vow_cons)
+def com_symbol_st(s):
+    global st
+    k = 0
+    symb = ''
+    for c in st:
+        if st.count(c) >= k and c != ' ':
+            k = st.count(c)
+            symb = c
+    k_t = s.count(symb)
+    sr = (k + k_t) / 2
+    return math.sqrt(((k - sr) ** 2 + (k_t - sr) ** 2) / 2)
+
+l.sort(key = com_symbol_st)
 print(l)
