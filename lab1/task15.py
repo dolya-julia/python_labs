@@ -11,8 +11,11 @@ def local_min(l, d):
             return "yes"
         else:
             return "no"
+def move_array(l):
+    return l[1:]+l[:1]
 
 n = int(input())
 l = [int(input()) for i in range(n)]
-d = int(input())
-print(local_min(l, d))
+# d = int(input())
+print(move_array(l))
+
