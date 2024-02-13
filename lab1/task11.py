@@ -44,5 +44,22 @@ def com_symbol_st(s):
     sr = (k + k_t) / 2
     return math.sqrt(((k - sr) ** 2 + (k_t - sr) ** 2) / 2)
 
-l.sort(key = com_symbol_st)
-print(l)
+
+
+print("Какую задачу вы хотите решить?")
+print("Задача 3, задача 5, задача 7, задача 12")
+nm = int(input())
+if nm == 3:
+    l.sort(key=com_symbol)
+    print(l)
+elif nm == 5:
+    l.sort(key=sq_deviation)
+    print(l)
+elif nm == 7:
+    l.sort(key=vow_cons)
+    print(l)
+elif nm == 12:
+    l.sort(key=com_symbol_st)
+    print(l)
+else:
+    print("Задача не выбрана")
