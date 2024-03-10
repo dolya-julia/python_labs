@@ -39,4 +39,19 @@ cursor.execute("INSERT INTO pass_routes(pass_id,routes_id) VALUES (2,4)")
 # Сохраняем изменения и закрываем соединение
 connection.commit()
 
+cursor.execute('SELECT * FROM routes')
+routes = cursor.fetchall()
+for route in routes:
+  print(route)
+
+cursor.execute('SELECT departure, arrival FROM routes WHERE price > ?', (500,))
+results = cursor.fetchall()
+for row in results:
+  print(row)
+
+cursor.execute('SELECT id_routes, departure, arrival FROM routes ORDER BY price DESC')
+results = cursor.fetchall()
+
+for row in results:
+  print(row)
 connection.close()
