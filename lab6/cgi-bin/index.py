@@ -35,13 +35,13 @@ print('</select>')
 print('<input type="submit" name="go_to" value="Перейти">')
 print('<input type="submit" name="save" value="Сохранить">')
 print('<input type="submit" name="export" value="Экспорт">')
-print('<input type="submit" name="import" value="Импорт">')
+# print('<input type="submit" name="import" value="Импорт">')
 
-
+# print("<textarea name='import_json' rows='20' cols='45'></textarea>")
 selected_button_go = form.getfirst("go_to", "")
 selected_button_save = form.getfirst("save", "")
 selected_button_export = form.getfirst("export", "")
-selected_button_import = form.getfirst("import", "")
+# selected_button_import = form.getfirst("import", "")
 
 if selected_button_go:
         if selected_table == 'bus_station':
@@ -139,8 +139,71 @@ print("""</body>
         </html>""")
 
 print('<form action="output.py">')
-print('<input type="submit" value="Вывод таблиц">')
+print('<br><input type="submit" value="Вывод таблиц">')
 print("</form><br>")
 
 
+def export_to_json(table):
+        connection = sqlite3.connect('transport.db')
+        connection.row_factory = sqlite3.Row
+        cursor = connection.cursor()
+        exec_sel = "SELECT * FROM {}".format(table)
+        cursor.execute(exec_sel)
+        rows = cursor.fetchall()
+        columns = [col[0] for col in cursor.description]
+        data = [dict(zip(columns, row)) for row in rows]
+        to_json = json.dumps(data, indent=2, ensure_ascii=False)
+        print("<textarea name='ex_json' rows='50' cols='45'>{}</textarea>".format(to_json))
+        connection.commit()
+        connection.close()
 
+
+if selected_button_export:
+        export_to_json(selected_table)
+
+print('<form action="?">')
+print('<input type="submit" name="import" value="Импорт"><br>')
+print("<textarea name='import_json' rows='20' cols='45'></textarea>")
+print("</form><br>")
+selected_button_import = form.getfirst("import", "")
+
+if selected_button_import:
+        json_str = form.getfirst("import_json")
+        json_data = json.loads(json_str)
+        connection = sqlite3.connect('transport.db')
+        connection.row_factory = sqlite3.Row
+        cursor = connection.cursor()
+        # cursor.executescript('''
+        # DROP table if exists example_table;
+        # CREATE TABLE example_table (data json)''')
+        # # for item in json_file:
+        # cursor.execute("INSERT INTO example_table VALUES (?)", [json.dumps(json_str)])
+        # connection.commit()
+        # connection.close()
+        # Aim of this block is to get the list of the columns in the JSON file.
+        columns = []
+        column = []
+        for data in json_data:
+                column = list(data.keys())
+                for col in column:
+                        if col not in columns:
+                                columns.append(col)
+
+        # Here we get values of the columns in the JSON file in the right order.
+        value = []
+        values = []
+        for data in json_data:
+                for i in columns:
+                        value.append(str(dict(data).get(i)))
+                values.append(list(value))
+                value.clear()
+
+        # Time to generate the create and insert queries and apply it to the sqlite3 database
+        cursor.execute("DROP table if exists myTable")
+        create_query = "create table if not exists myTable ({0})".format(" text,".join(columns))
+        insert_query = "insert into myTable ({0}) values(?{1})".format(", ".join(columns), ",?" * (len(columns)-1))
+        cursor.execute(create_query)
+        cursor.executemany(insert_query, values)
+        values.clear()
+        connection.commit()
+        connection.close()
