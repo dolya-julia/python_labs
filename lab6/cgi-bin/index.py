@@ -5,9 +5,10 @@ import sqlite3
 import os
 import cgi
 import html
+import json
 connection = sqlite3.connect('transport.db')
 connection.row_factory = sqlite3.Row
-cursor = connection.cursor()    
+cursor = connection.cursor()
 
 print("Content-type: text/html\n")
 print("""<!DOCTYPE HTML>
@@ -20,7 +21,7 @@ print("""<!DOCTYPE HTML>
 
 print('<form action="?" method="post">')
 print("Выберите таблицу для заполнения:")
-tuples_list = [('station', 'Автостанции'), ('routes', 'Рейсы'),('passenger', 'Пассажиры'),('pass_routes', 'Пассажиры и рейсы')]
+tuples_list = [('bus_station', 'Автостанции'), ('routes', 'Рейсы'),('passenger', 'Пассажиры'),('pass_routes', 'Пассажиры и рейсы')]
 form = cgi.FieldStorage()
 selected_table = form.getfirst("table", "не задано")
 print('<select name="table" id="table_select">')
@@ -28,20 +29,22 @@ for item in tuples_list:
         if selected_table == item[0]:
                 print('<option value={0} selected>{1}</option>'.format(item[0], item[1]))
         else:
-               print('<option value={0}>{1}</option>'.format(item[0], item[1])) 
+                print('<option value={0}>{1}</option>'.format(item[0], item[1]))
 print('</select>')
 
 print('<input type="submit" name="go_to" value="Перейти">')
 print('<input type="submit" name="save" value="Сохранить">')
-
+print('<input type="submit" name="export" value="Экспорт">')
+print('<input type="submit" name="import" value="Импорт">')
 
 
 selected_button_go = form.getfirst("go_to", "")
 selected_button_save = form.getfirst("save", "")
-
+selected_button_export = form.getfirst("export", "")
+selected_button_import = form.getfirst("import", "")
 
 if selected_button_go:
-        if selected_table == 'station':
+        if selected_table == 'bus_station':
                 print("""<br>Добавление автостанции:
                 <input type="text" name="station_name"><br>
                 <br>""")
@@ -89,13 +92,12 @@ if selected_button_go:
                 for row in data:
                         print('<option value={0}>{1}</option>'.format(row['id_routes'], row['departure'] + '--' + row['arrival']))
                 print("""</select>""")
-
 connection.close()
 print('</form>')
 if selected_button_save:
         connection = sqlite3.connect('transport.db')
         cursor = connection.cursor()
-        if selected_table == 'station':
+        if selected_table == 'bus_station':
                 station_name = form.getfirst("station_name", "")
                 station_name = html.escape(station_name)
                 cursor.execute("INSERT INTO bus_station (station_name) VALUES (?)",([station_name]))
@@ -139,3 +141,6 @@ print("""</body>
 print('<form action="output.py">')
 print('<input type="submit" value="Вывод таблиц">')
 print("</form><br>")
+
+
+
