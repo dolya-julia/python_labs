@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Transport</title>
+    </head>
+    <body>
+     <table  border="1">
+      <thead>
+          <tr>
+            <td>id</td>
+            <td>Отправление</td>
+              <td>Прибытие</td>
+              <td>Дата</td>
+          </tr>
+      </thead>
+      <tbody>
+          {% for route in routes %}
+            <tr>
+              <td><a href="{% url 'route_detail' pk=route.pk %}">{{ route.id }}</a></td>
+              <td>{{ route.departure }}</td>
+                <td>{{ route.arrival }}</td>
+                <td>{{ route.departure_time }}</td>
+            </tr>
+          {% endfor %}
+      </tbody>
+      </table><br>
+     <form style="display: inline" action="{% url 'route_create'%}" method="get">
+        <button>Create passenger</button>
+      </form>
+    </body>
+</html>

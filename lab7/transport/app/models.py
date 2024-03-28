@@ -21,7 +21,6 @@ class Route(models.Model):
     departure = models.ForeignKey(BusStation, related_name='routes_as_departure', on_delete = models.CASCADE)
     arrival = models.ForeignKey(BusStation, related_name='routes_as_arrival', on_delete = models.CASCADE)
     departure_time = models.DateTimeField()
-    departure_time = models.DateTimeField()
     arrival_time = models.DateTimeField()
     price = models.FloatField()
     passengers = models.ManyToManyField(Passenger)

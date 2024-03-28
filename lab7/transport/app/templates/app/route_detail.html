@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Route {{ route.id }} details</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <h1>Route id: {{ route.id }}</h1>
+
+    <p><strong>Отправление:</strong> {{route.departure }}</p>
+    <p><strong>Прибытие:</strong> {{ route.arrival }}</p>
+    <p><strong>Дата отправления:</strong> {{ route.departure_time }}</p>
+    <p><strong>Дата прибытия:</strong> {{ route.arrival_time }}</p>
+    <p><strong>Цена:</strong> {{ route.price }}</p>
+    <p><strong>Пассажиры:</strong><br>
+      <select multiple>
+      {% for passenger in route.passengers.all %}
+              <option>  {{passenger.name}}</option>
+                            {% endfor %}
+        </select>
+    </p>
+
+        <form style="display: inline" action="{% url 'route_update' route.id %}" method="get">
+        <button>Update</button>
+      </form>
+  </body>
+</html>
