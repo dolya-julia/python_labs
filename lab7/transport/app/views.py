@@ -46,3 +46,5 @@ class PassengerDetail(DetailView):
 class PassengerCreate(CreateView):
     model = Passenger
     fields = '__all__'
+    template_name = 'app/change_data.html'
+    success_url = reverse_lazy('index')

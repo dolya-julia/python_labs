@@ -13,5 +13,7 @@ urlpatterns = [
          name='route_delete'),
     path('passenger/<int:pk>/', views.PassengerDetail.as_view(template_name="app/passenger_detail.html"),
          name='passenger_detail'),
+    path('passenger/create/', views.PassengerCreate.as_view(template_name="app/change_data.html"),
+         name='passenger_create'),
 ]
 
