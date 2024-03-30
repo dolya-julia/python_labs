@@ -11,7 +11,7 @@ class BusStation(models.Model):
 class Passenger(models.Model):
     name = models.CharField(max_length=30, verbose_name="Имя")
     date_of_birth = models.DateField(verbose_name="Дата рождения")
-    passport = models.CharField(max_length=10, verbose_name="Пасспорт")
+    passport = models.CharField(max_length=10, verbose_name="Паспорт")
     phone_number = models.CharField(max_length=10, verbose_name="Номер телефона")
 
     def __str__(self):

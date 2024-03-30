@@ -19,11 +19,6 @@ def route_detail(request, pk):
     return render(request, 'app/route_detail.html', {'route': route})
 
 
-class PassengerCreate(CreateView):
-    model = Passenger
-    fields = '__all__'
-
-
 class RouteUpdate(UpdateView):
     model = Route
     fields = '__all__'
@@ -41,3 +36,13 @@ class RouteCreate(CreateView):
 class RouteDelete(DeleteView):
     model = Route
     success_url = "/"
+
+
+class PassengerDetail(DetailView):
+    model = Passenger
+    fields = '__all__'
+
+
+class PassengerCreate(CreateView):
+    model = Passenger
+    fields = '__all__'

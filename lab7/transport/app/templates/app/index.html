@@ -39,14 +39,11 @@
       <tbody>
           {% for passenger in passengers %}
             <tr>
-              <td><a href="{% url 'route_detail' pk=passenger.pk %}">{{ passenger.id }}</a></td>
+              <td><a href="{% url 'passenger_detail' pk=passenger.pk %}">{{ passenger.id }}</a></td>
               <td>{{ passenger.name }}</td>
             </tr>
           {% endfor %}
       </tbody>
       </table><br>
-     <form style="display: inline" action="{% url 'route_create'%}" method="get">
-        <button>Добавить пассажира</button>
-      </form>
     </body>
 </html>
