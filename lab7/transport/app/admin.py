@@ -17,7 +17,7 @@ class PostRoute(admin.ModelAdmin):
 
 
 class PostPassenger(admin.ModelAdmin):
-    list_display = ['name', 'date_of_birth', 'passport']
+    list_display = ['name', 'date_of_birth', 'passport', 'phone_number']
     search_fields = ['name', 'passport']
 
 
