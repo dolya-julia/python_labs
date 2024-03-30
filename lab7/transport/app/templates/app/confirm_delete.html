@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Удаление рейса</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <p>Вы точно хотите удалить рейс № {{ route.id }}?</p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="submit" action="" value="Удалить">
+    </form>
+  </body>
+</html>

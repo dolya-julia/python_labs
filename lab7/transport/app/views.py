@@ -10,7 +10,8 @@ from .models import Route, Passenger
 
 def index(request):
     routes = Route.objects.all()
-    return render(request, 'app/index.html', {'routes': routes})
+    passengers = Passenger.objects.all()
+    return render(request, 'app/index.html', {'routes': routes, 'passengers': passengers})
 
 
 def route_detail(request, pk):
@@ -32,7 +33,7 @@ class RouteUpdate(UpdateView):
 
 class RouteCreate(CreateView):
     model = Route
-    fields = '__all__'
+    fields = ('departure', 'arrival', 'departure_time', 'arrival_time', 'price')
     template_name = 'app/route_update.html'
     success_url = reverse_lazy('index')
 
