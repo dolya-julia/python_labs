@@ -12,7 +12,7 @@ class Passenger(models.Model):
     name = models.CharField(max_length=30, verbose_name="Имя")
     date_of_birth = models.DateField(verbose_name="Дата рождения")
     passport = models.CharField(max_length=10, verbose_name="Паспорт")
-    phone_number = models.CharField(max_length=10, verbose_name="Номер телефона")
+    phone_number = models.CharField(max_length=20, verbose_name="Номер телефона")
 
     def __str__(self):
         return f'{self.name} {self.passport}'

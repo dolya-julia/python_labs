@@ -29,7 +29,7 @@ class RouteUpdate(UpdateView):
 class RouteCreate(CreateView):
     model = Route
     fields = ('departure', 'arrival', 'departure_time', 'arrival_time', 'price')
-    template_name = 'app/route_update.html'
+    template_name = 'app/change_data.html'
     success_url = reverse_lazy('index')
 
 
@@ -48,3 +48,15 @@ class PassengerCreate(CreateView):
     fields = '__all__'
     template_name = 'app/change_data.html'
     success_url = reverse_lazy('index')
+
+
+class PassengerUpdate(UpdateView):
+    model = Passenger
+    fields = '__all__'
+    template_name = 'app/change_data.html'
+    success_url = reverse_lazy('index')
+
+
+class PassengerDelete(DeleteView):
+    model = Passenger
+    success_url = "/"

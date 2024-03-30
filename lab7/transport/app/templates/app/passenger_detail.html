@@ -12,6 +12,11 @@
     <p><strong>Дата рождения:</strong> {{ passenger.date_of_birth }}</p>
     <p><strong>Паспорт:</strong> {{ passenger.passport }}</p>
     <p><strong>Телефон:</strong> {{ passenger.phone_number }}</p>
-
+    <form style="display: inline" action="{% url 'passenger_update' passenger.id %}" method="get">
+        <button>Изменить</button>
+    </form>
+    <form style="display: inline" action="{% url 'passenger_delete' passenger.id %}" method="get">
+        <button>Удалить</button>
+    </form>
   </body>
 </html>
